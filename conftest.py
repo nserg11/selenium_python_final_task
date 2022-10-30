@@ -17,7 +17,9 @@ def browser(request):
     user_language = request.config.getoption("language")
     if browser_name == "chrome":
         options = chrOptions()
+        options.add_argument('headless')
         options.add_experimental_option('prefs', {'intl.accept_languages': user_language})
+        options.add_experimental_option('excludeSwitches', ['enable-logging'])
         browser = webdriver.Chrome(options=options)
     elif browser_name == "firefox":  # using recommended way to set language for selenium 4.+
         options = ffOptions()
@@ -26,4 +28,4 @@ def browser(request):
     else:
         raise pytest.UsageError("--browser_name should be chrome or firefox, language should be valid")
     yield browser
-    # browser.quit()
+    browser.quit()

@@ -1,5 +1,4 @@
 from .pages.main_page import MainPage
-# from selenium.webdriver.common.by import By
 from .pages.login_page import LoginPage
 
 
