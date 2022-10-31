@@ -1,13 +1,13 @@
 from .pages.product_page import ProductPage
+from .pages.basket_page import BasketPage
 import pytest
-import time
 
 LINK = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207"
 
 
-@pytest.mark.skip(reason="no need to be tested now")
+# @pytest.mark.skip(reason="no need to be tested now")
 # @pytest.mark.parametrize('link', LINK)
-def test_guest_can_add_product_to_basket(browser, link):
+def test_guest_can_add_product_to_basket(browser, link="http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer5"):
     page = ProductPage(browser, link)  # инициализируем Page Object, передаем в конструктор экземпляр драйвера и url
     page.open()  # открываем страницу
     page.should_be_promo_url()  # выполняем метод страницы — проверяем параметр промо в url страницы
@@ -53,3 +53,14 @@ def test_guest_can_go_to_login_page_from_product_page(browser):
     page = ProductPage(browser, link)
     page.open()
     page.go_to_login_page()
+
+
+def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
+    link = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-city-and-the-stars_95/"
+    page = ProductPage(browser, link)
+    page.open()  # Гость открывает главную страницу
+    page.go_to_basket_page()  # Переходит в корзину по кнопке в шапке сайта
+    basket_page = BasketPage(browser, browser.current_url)
+    basket_page.should_be_basket_url()  # Проверяем, что это страница корзины
+    basket_page.should_be_no_products_in_basket()  # Проверяем, что в корзине нет продуктов
+    basket_page.check_msg_empty_basket()  # Проверяем, что есть сообщение о пустой корзине
