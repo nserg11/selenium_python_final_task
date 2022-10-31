@@ -4,7 +4,7 @@ from .locators import ProductPageLocators
 
 class ProductPage(BasePage):
     def should_be_promo_url(self):
-        assert '?promo=offer' in self.browser.current_url, "This is not promo url"
+        assert '?promo' in self.browser.current_url, "This is not promo url"
 
     def add_to_basket(self):
         assert self.is_element_present(*ProductPageLocators.ADD_TO_BASKET_BTN), "Add-to-basket button not found"
@@ -37,6 +37,3 @@ class ProductPage(BasePage):
     def should_disappear_success_message(self):
         assert self.is_disappeared(*ProductPageLocators.ADD_TO_BASKET_SUCCESS_MSG), \
             "Success message is presented, but should have disappeared"
-
-
-
