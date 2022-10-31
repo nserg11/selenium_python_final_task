@@ -17,7 +17,7 @@ def browser(request):
     user_language = request.config.getoption("language")
     if browser_name == "chrome":
         options = chrOptions()
-        options.add_argument('headless')
+        options.add_argument('headless')  # чтобы браузер не открывался в gui
         options.add_experimental_option('prefs', {'intl.accept_languages': user_language})
         options.add_experimental_option('excludeSwitches', ['enable-logging'])
         browser = webdriver.Chrome(options=options)
