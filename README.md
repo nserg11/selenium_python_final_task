@@ -1,7 +1,8 @@
 # selenium_python_final_task
 This is my repository for the final task of Stepik test automation course https://stepik.org/lesson/199980/step/6?unit=174035
 
-Use the command 
+Use the command
+
 pytest -v --tb=line --language=en -m need_review
 
 to run the following tests:
