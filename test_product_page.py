@@ -27,11 +27,11 @@ class TestUserAddToBasketFromProductPage:
 
     @pytest.mark.need_review
     def test_user_can_add_product_to_basket(self, browser, link=LINK):
-        page = ProductPage(browser, link)  # инициализируем Page Object, передаем в конструктор экземпляр драйвера и url
-        page.open()  # открываем страницу
-        # page.should_be_promo_url()  # выполняем метод страницы — проверяем параметр промо в url страницы
-        page.add_to_basket()  # добавляем товар в корзину
-        # page.solve_quiz_and_get_code()  # проверяем алерт, решаем задачу и вводим ответ
+        page = ProductPage(browser, link)   # initialize Page Object, pass an instance of a driver and url
+        page.open()
+        # page.should_be_promo_url()  # execute page method checking the 'promo' url is correct
+        page.add_to_basket()  # add product to basket
+        # page.solve_quiz_and_get_code()  # check the alert with a math assertion and enter the answer
         product_name = page.get_product_name()
         product_price = page.get_product_price()
         page.check_msg_added_to_basket(product_name)
@@ -41,7 +41,7 @@ class TestUserAddToBasketFromProductPage:
 @pytest.mark.need_review
 def test_guest_can_add_product_to_basket(browser, link=LINK):
     page = ProductPage(browser, link)  # инициализируем Page Object, передаем в конструктор экземпляр драйвера и url
-    page.open()  # открываем страницу
+    page.open()
     # page.should_be_promo_url()  # выполняем метод страницы — проверяем параметр промо в url страницы
     page.add_to_basket()  # добавляем товар в корзину
     # page.solve_quiz_and_get_code()  # проверяем алерт, решаем задачу и вводим ответ
@@ -61,23 +61,23 @@ def test_guest_can_go_to_login_page_from_product_page(browser, link=LINK):
 @pytest.mark.need_review
 def test_guest_cant_see_product_in_basket_opened_from_product_page(browser, link=LINK):
     page = ProductPage(browser, link)
-    page.open()  # Гость открывает главную страницу
-    page.go_to_basket_page()  # Переходит в корзину по кнопке в шапке сайта
+    page.open()  # opens product page
+    page.go_to_basket_page()  # uses the button in the site header to go to basket
     basket_page = BasketPage(browser, browser.current_url)
-    basket_page.should_be_basket_url()  # Проверяем, что это страница корзины
-    basket_page.should_be_no_products_in_basket()  # Проверяем, что в корзине нет продуктов
-    basket_page.check_msg_empty_basket()  # Проверяем, что есть сообщение о пустой корзине
+    basket_page.should_be_basket_url()  # checking this is basket page
+    basket_page.should_be_no_products_in_basket()  # checking the basket is empty
+    basket_page.check_msg_empty_basket()  # checking message about the empty basket
 
 
 def test_guest_cant_see_success_message(browser, link=LINK):
-    page = ProductPage(browser, link)  # инициализируем Page Object, передаем в конструктор экземпляр драйвера и url
+    page = ProductPage(browser, link)
     page.open()
     page.should_not_be_success_message()
 
 
 @pytest.mark.xfail(reason="not supposed to pass")
 def test_guest_cant_see_success_message_after_adding_product_to_basket(browser, link=LINK):
-    page = ProductPage(browser, link)  # инициализируем Page Object, передаем в конструктор экземпляр драйвера и url
+    page = ProductPage(browser, link)
     page.open()
     page.add_to_basket()
     page.should_not_be_success_message()
@@ -85,7 +85,7 @@ def test_guest_cant_see_success_message_after_adding_product_to_basket(browser, 
 
 @pytest.mark.xfail(reason="not supposed to pass")
 def test_message_disappeared_after_adding_product_to_basket(browser, link=LINK):
-    page = ProductPage(browser, link)  # инициализируем Page Object, передаем в конструктор экземпляр драйвера и url
+    page = ProductPage(browser, link)
     page.open()
     page.add_to_basket()
     page.should_disappear_success_message()
